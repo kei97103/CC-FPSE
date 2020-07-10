@@ -1,4 +1,5 @@
 from models.pix2pix_model import Pix2PixModel
+from models.networks.sync_batchnorm import DataParallelWithCallback
 import torch
 
 class Pix2PixTrainer():
@@ -11,8 +12,8 @@ class Pix2PixTrainer():
     def __init__(self, opt):
         self.opt = opt
         self.pix2pix_model = Pix2PixModel(opt)
-        self.pix2pix_model = torch.nn.parallel.DistributedDataParallel(self.pix2pix_model,
-                                    device_ids=[opt.gpu], find_unused_parameters=True)
+        #self.pix2pix_model = torch.nn.parallel.DistributedDataParallel(self.pix2pix_model,device_ids=[opt.gpu], find_unused_parameters=True)
+        self.pix2pix_model = DataParallelWithCallback(self.pix2pix_model,device_ids=opt.gpu_ids)
         self.pix2pix_model_on_one_gpu = self.pix2pix_model.module
 
         self.generated = None
