@@ -19,6 +19,9 @@ class BaseOptions():
         parser.add_argument('--num_servers', type=int, default=1)
         parser.add_argument('--idx_server', type=int, default=0)
         parser.add_argument('--ngpus_per_node', type=int, default=8, help='num of gpus for each server')
+
+        parser.add_argument('--gpu_ids', type=str, default='0', help='gpu ids: e.g. 0  0,1,2, 0,2. use -1 for CPU')
+
         parser.add_argument('--name', type=str, default='CC-FPSE_coco', help='name of the experiment. It decides where to store samples and models')
 
         parser.add_argument('--checkpoints_dir', type=str, default='./checkpoints', help='models are saved here')
@@ -160,18 +163,18 @@ class BaseOptions():
             (0 if opt.no_instance else 1) 
 
         # set gpu ids
-        #str_ids = opt.gpu_ids.split(',')
-        #opt.gpu_ids = []
-        #for str_id in str_ids:
-        #    id = int(str_id)
-        #    if id >= 0:
-        #        opt.gpu_ids.append(id)
-        #if len(opt.gpu_ids) > 0 and not opt.mpdist:
-        #    torch.cuda.set_device(opt.gpu_ids[0])
+        str_ids = opt.gpu_ids.split(',')
+        opt.gpu_ids = []
+        for str_id in str_ids:
+            id = int(str_id)
+            if id >= 0:
+                opt.gpu_ids.append(id)
+        if len(opt.gpu_ids) > 0 and not opt.mpdist:
+            torch.cuda.set_device(opt.gpu_ids[0])
 
-        #assert len(opt.gpu_ids) == 0 or opt.batchSize % len(opt.gpu_ids) == 0, \
-        #    "Batch size %d is wrong. It must be a multiple of # GPUs %d." \
-        #    % (opt.batchSize, len(opt.gpu_ids))
+        assert len(opt.gpu_ids) == 0 or opt.batchSize % len(opt.gpu_ids) == 0, \
+            "Batch size %d is wrong. It must be a multiple of # GPUs %d." \
+            % (opt.batchSize, len(opt.gpu_ids))
 
         self.opt = opt
         return self.opt
