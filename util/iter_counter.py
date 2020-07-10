@@ -68,13 +68,13 @@ class IterationCounter():
             print('Saved current iteration count at %s.' % self.iter_record_path)
 
     def needs_saving(self):
-        return (self.total_steps_so_far % self.opt.save_latest_freq) < self.opt.batchSize * self.world_size
+        return (self.total_steps_so_far % self.opt.save_latest_freq) < self.opt.batchSize
 
     def needs_printing(self):
-        return (self.total_steps_so_far % self.opt.print_freq) < self.opt.batchSize * self.world_size
+        return (self.total_steps_so_far % self.opt.print_freq) < self.opt.batchSize 
 
     def needs_displaying(self):
-        return (self.total_steps_so_far % self.opt.display_freq) < self.opt.batchSize * self.world_size
+        return (self.total_steps_so_far % self.opt.display_freq) < self.opt.batchSize
         
         
         
