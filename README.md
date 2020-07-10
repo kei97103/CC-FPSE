@@ -8,6 +8,7 @@ Published in NeurIPS 2019.
 
 ############################################
 ############################################
+
 Small revision for using this code at windows.
 xh-liu's original code was for linux with 16 GPUs.
 But currently torch.distributed does not support windows.
@@ -21,6 +22,7 @@ Below is my training command.
 ```bash
 python train_spade.py --name coco_test --dataroot D:\Sanghun\SPADE\datasets\coco_stuff --batchSize 2 --ngpus_per_node 2 --gpu_ids 0,1
 ```
+
 ############################################
 ############################################
 
