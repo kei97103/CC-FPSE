@@ -38,7 +38,8 @@ def create_network(cls, opt):
     net = cls(opt)
     net.print_network()
     assert(torch.cuda.is_available())   
-    net.cuda(opt.gpu)
+    #net.cuda(opt.gpu)
+    net.cuda()
     net.init_weights(opt.init_type, opt.init_variance)
     return net
 

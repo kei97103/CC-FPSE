@@ -99,7 +99,8 @@ class VGGLoss(nn.Module):
     def __init__(self, gpu):
         super(VGGLoss, self).__init__()        
         if gpu is not None:
-            self.vgg = VGG19().cuda(gpu)
+           # self.vgg = VGG19().cuda(gpu)
+           self.vgg = VGG19().cuda()
         else:
             self.vgg = VGG19().cuda()
         self.criterion = nn.L1Loss()
