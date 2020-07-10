@@ -23,7 +23,8 @@ class Pix2PixModel(torch.nn.Module):
                 opt.gan_mode, tensor=self.FloatTensor, opt=self.opt)
             self.criterionFeat = torch.nn.L1Loss()
             if not opt.no_vgg_loss:
-                self.criterionVGG = networks.VGGLoss(self.opt.gpu)
+                #self.criterionVGG = networks.VGGLoss(self.opt.gpu)
+                self.criterionVGG = networks.VGGLoss(self.opt.gpu_ids)
             if opt.use_vae:
                 self.KLDLoss = networks.KLDLoss()
 
@@ -102,9 +103,9 @@ class Pix2PixModel(torch.nn.Module):
     def preprocess_input(self, data):
         # move to GPU and change data types
         data['label'] = data['label'].long()
-        data['label'] = data['label'].cuda(self.opt.gpu)
-        data['instance'] = data['instance'].cuda(self.opt.gpu)
-        data['image'] = data['image'].cuda(self.opt.gpu)
+        data['label'] = data['label'].cuda()
+        data['instance'] = data['instance'].cuda()
+        data['image'] = data['image'].cuda()
 
         # create one-hot label map
         label_map = data['label']
@@ -156,7 +157,7 @@ class Pix2PixModel(torch.nn.Module):
             fake_image.requires_grad_()
 
         _, pred_fake, _, pred_real = self.discriminate(input_semantics, fake_image, real_image)
-
+        print("pred_fake", pred_fake[0].shape)
 
         D_losses['D_Fake'] = self.criterionGAN(pred_fake, False, for_discriminator=True)
         D_losses['D_real'] = self.criterionGAN(pred_real, True,  for_discriminator=True)
@@ -214,6 +215,7 @@ class Pix2PixModel(torch.nn.Module):
 
     def get_edges(self, t):
         edge = self.ByteTensor(t.size()).zero_() # for PyTorch versions higher than 1.2.0, use BoolTensor instead of ByteTensor
+        edge = edge.bool()
         edge[:, :, :, 1:] = edge[:, :, :, 1:] | (t[:, :, :, 1:] != t[:, :, :, :-1])
         edge[:, :, :, :-1] = edge[:, :, :, :-1] | (t[:, :, :, 1:] != t[:, :, :, :-1])
         edge[:, :, 1:, :] = edge[:, :, 1:, :] | (t[:, :, 1:, :] != t[:, :, :-1, :])
