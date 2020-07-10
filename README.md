@@ -1,10 +1,5 @@
 # Learning to Predict Layout-to-image Conditional Convolutions for Semantic Image Synthesis
 
-[Xihui Liu](https://xh-liu.github.io),  [Guojun Yin](https://gjyin91.github.io/), [Jing Shao](https://amandajshao.github.io/), [Xiaogang Wang](https://www.ee.cuhk.edu.hk/~xgwang/) and [Hongsheng Li](https://www.ee.cuhk.edu.hk/~hsli/).<br>
-Published in NeurIPS 2019.
-
-### [Paper](https://arxiv.org/abs/1910.06809) | [Poster](https://drive.google.com/open?id=10A2HdhI7kzDj3xelsxqlivtPQ3e5pVeQ) | [Slides](https://drive.google.com/open?id=1ocpgYFmRkG_myEMzWu7uFVx7_adJUD4r)
-
 
 ############################################
 ############################################
@@ -31,6 +26,15 @@ python train_spade.py --name coco_test --dataroot D:\Sanghun\SPADE\datasets\coco
 
 ############################################
 ############################################
+
+
+
+
+[Xihui Liu](https://xh-liu.github.io),  [Guojun Yin](https://gjyin91.github.io/), [Jing Shao](https://amandajshao.github.io/), [Xiaogang Wang](https://www.ee.cuhk.edu.hk/~xgwang/) and [Hongsheng Li](https://www.ee.cuhk.edu.hk/~hsli/).<br>
+Published in NeurIPS 2019.
+
+### [Paper](https://arxiv.org/abs/1910.06809) | [Poster](https://drive.google.com/open?id=10A2HdhI7kzDj3xelsxqlivtPQ3e5pVeQ) | [Slides](https://drive.google.com/open?id=1ocpgYFmRkG_myEMzWu7uFVx7_adJUD4r)
+
 
 ## Installation
 
