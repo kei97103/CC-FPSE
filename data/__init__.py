@@ -33,7 +33,8 @@ def get_option_setter(dataset_name):
     return dataset_class.modify_commandline_options
 
 
-def create_dataloader(opt, world_size, rank):
+#def create_dataloader(opt, world_size, rank):
+def create_dataloader(opt):
     dataset = find_dataset_using_name(opt.dataset_mode)
     instance = dataset()
     instance.initialize(opt)
@@ -41,10 +42,10 @@ def create_dataloader(opt, world_size, rank):
           (type(instance).__name__, len(instance)))
 
     if opt.isTrain:
-        train_sampler = torch.utils.data.distributed.DistributedSampler(instance, num_replicas=world_size, rank=rank)
+        #train_sampler = torch.utils.data.distributed.DistributedSampler(instance, num_replicas=world_size, rank=rank)
         dataloader = torch.utils.data.DataLoader(instance,
                                                  batch_size=opt.batchSize,
-                                                 sampler=train_sampler,
+                                                 #sampler=train_sampler,
                                                  shuffle=False,
                                                  num_workers=int(opt.nThreads),
                                                  drop_last=opt.isTrain)
